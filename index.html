@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANTITHESIS — Against Faux-Literary Posturing</title>
+  <meta name="description" content="A razor-sharp analytical instrument. We explicitly refuse the sanctimonious 'Claude' aesthetic and its faux-humble literary pretenses.">
+  <!-- Mandatory Embedded Vector Favicon (RULE[user_global]) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231D1B18'/%3E%3Cpath d='M8 8 L24 24 M24 8 L8 24' stroke='%23B34629' stroke-width='3.5' stroke-linecap='square'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* 1. Design Tokens — Editorial Ratio System */
+    :root {
+      --bg: #FAF8F5;
+      --surface: #F2ECE4;
+      --surface-soft: #E8E0D5;
+      --ink: #1D1B18;
+      --ink-secondary: #3B3733;
+      --accent: #B34629;
+      --accent-ink: #FFFFFF;
+      --accent-hover: #96351B;
+      --field-bg: #1D1B18;
+      --field-ink: #FAF8F5;
+      --field-muted: #B8B2A7;
+      
+      --font-display: 'Bodoni Moda', serif;
+      --font-body: 'Jost', sans-serif;
+      
+      --margin: clamp(20px, 3.2vw, 48px);
+      --gutter: clamp(16px, 2vw, 32px);
+      --section-gap: clamp(64px, 7vw, 100px);
+      
+      /* Strictly 5 size steps */
+      --step-small: 1rem;                          /* 16px */
+      --step-body: 1.125rem;                       /* 18px */
+      --step-lead: 1.5rem;                         /* 24px */
+      --step-h2: clamp(2.25rem, 1.8rem + 1.8vw, 3rem); /* 36px - 48px */
+      --step-h1: clamp(2.75rem, 1.8rem + 4vw, 5.5rem); /* 44px - 88px */
+      --step-giant: clamp(2.5rem, 11vw, 7.5rem);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      scrollbar-gutter: stable;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    img, video {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    p, .footer-credits-block, .tile-prose-text, .capability-desc, .words-compared-prose {
+      max-width: 54ch;
+    }
+
+    /* 2. Top Navigation */
+    .masthead-nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      display: flex;
+      align-items: stretch;
+      z-index: 20;
+    }
+
+    .nav-wordmark {
+      background-color: var(--ink);
+      color: var(--bg);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      font-family: var(--font-display);
+      font-size: var(--step-body);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-tab {
+      background-color: var(--surface);
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 0 32px;
+      flex: 0 1 42%;
+    }
+
+    .nav-link {
+      font-size: var(--step-small);
+      color: var(--ink-secondary);
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--ink);
+    }
+
+    .nav-action {
+      margin-left: auto;
+      background-color: var(--accent);
+      color: var(--accent-ink);
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      font-size: var(--step-small);
+      font-weight: 600;
+      transition: background-color 0.15s ease;
+    }
+
+    .nav-action:hover {
+      background-color: var(--accent-hover);
+    }
+
+    /* 3. Hero Section */
+    .hero {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-bottom: clamp(36px, 5vw, 64px);
+    }
+
+    .masthead-mosaic {
+      width: 100%;
+      height: 48vh;
+      min-height: 320px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: 1fr 1fr;
+      position: relative;
+      background-color: var(--surface);
+    }
+
+    .mosaic-cell {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+
+    .mosaic-cell img, .mosaic-cell video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.08);
+      transition: transform 0.6s ease;
+    }
+
+    .mosaic-cell:hover img, .mosaic-cell:hover video {
+      transform: scale(1.03);
+    }
+
+    .mosaic-cell.photo-hero {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .mosaic-cell.tile-ink {
+      background-color: var(--ink);
+    }
+
+    .mosaic-cell.tile-surface {
+      background-color: var(--surface-soft);
+    }
+
+    .mosaic-cell.tile-terracotta {
+      background-color: var(--accent);
+    }
+
+    .hero-content {
+      padding: clamp(32px, 4vw, 56px) var(--margin) 0;
+      display: grid;
+      grid-template-columns: 42% 58%;
+      align-items: start;
+      gap: var(--gutter);
+    }
+
+    .hero-standfirst-col {
+      padding-right: clamp(16px, 3vw, 40px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .hero-standfirst {
+      font-size: var(--step-lead);
+      line-height: 1.45;
+      color: var(--ink-secondary);
+      max-width: 32ch;
+    }
+
+    .hero-publication-index {
+      font-size: var(--step-small);
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+
+    .hero-title-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: var(--step-h1);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 0.94;
+      color: var(--ink);
+    }
+
+    .masked-line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .masked-line > span {
+      display: block;
+      transform: translateY(105%);
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .masked-line:nth-child(2) > span {
+      transition-delay: 0.11s;
+    }
+
+    .is-ready .masked-line > span {
+      transform: translateY(0%);
+    }
+
+    .hero-action-row {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.6s ease 0.35s, transform 0.6s ease 0.35s;
+    }
+
+    .is-ready .hero-action-row {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 52px;
+      padding: 0 34px;
+      background-color: var(--accent);
+      color: var(--accent-ink);
+      font-size: var(--step-body);
+      font-weight: 600;
+      transition: background-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary-link {
+      font-size: var(--step-body);
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      padding-bottom: 2px;
+      transition: opacity 0.15s ease;
+    }
+
+    .btn-secondary-link:hover {
+      opacity: 0.7;
+    }
+
+    /* 4. Section: Statement Tiles */
+    .section-statement-tiles {
+      margin-top: var(--section-gap);
+      padding: 0 var(--margin);
+    }
+
+    .tiles-board {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 36svh 36svh;
+      gap: 8px;
+    }
+
+    .tile {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(20px, 3vw, 40px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .tile-a {
+      grid-column: 1 / 9;
+      grid-row: 1 / 3;
+      background-color: var(--ink);
+      color: var(--bg);
+    }
+
+    .tile-a-slogan {
+      font-family: var(--font-display);
+      font-size: var(--step-h1);
+      font-weight: 500;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+    }
+
+    .tile-b {
+      grid-column: 9 / 13;
+      grid-row: 1 / 2;
+      background-color: var(--surface);
+      color: var(--ink);
+    }
+
+    .tile-b-label {
+      font-size: var(--step-body);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+    }
+
+    .tile-c {
+      grid-column: 9 / 13;
+      grid-row: 2 / 3;
+      padding: 0;
+      background-color: var(--surface-soft);
+    }
+
+    .tile-c img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.05);
+    }
+
+    .tile-prose-row {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 8px;
+      background-color: var(--surface);
+      padding: clamp(32px, 5vw, 64px) clamp(24px, 4vw, 48px);
+    }
+
+    .tile-prose-content {
+      grid-column: 6 / 13;
+    }
+
+    .tile-prose-heading {
+      font-family: var(--font-display);
+      font-size: var(--step-lead);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: var(--ink);
+    }
+
+    .tile-prose-text {
+      font-size: var(--step-body);
+      line-height: 1.6;
+      color: var(--ink);
+      max-width: 54ch;
+    }
+
+    /* 5. Section: Two Giant Words Compared (Showcase) */
+    .section-words-compared {
+      margin-top: var(--section-gap);
+      padding: 0 var(--margin);
+      overflow: hidden;
+    }
+
+    .words-compared-header {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gutter);
+      margin-bottom: clamp(40px, 6vw, 72px);
+      align-items: start;
+    }
+
+    .words-compared-heading {
+      grid-column: 1 / 7;
+      font-family: var(--font-display);
+      font-size: var(--step-h2);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .words-compared-prose {
+      grid-column: 7 / 13;
+      font-size: var(--step-lead);
+      line-height: 1.5;
+      color: var(--ink-secondary);
+      max-width: 50ch;
+    }
+
+    .words-comparison-stage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      min-height: clamp(220px, 30vw, 420px);
+    }
+
+    .specimen-card {
+      background-color: var(--surface);
+      padding: clamp(20px, 3vw, 40px);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .specimen-card.card-active {
+      background-color: var(--surface-soft);
+    }
+
+    .specimen-giant {
+      font-family: var(--font-display);
+      font-size: var(--step-giant);
+      font-weight: 600;
+      line-height: 0.85;
+      letter-spacing: -0.05em;
+      color: var(--ink);
+      user-select: none;
+    }
+
+    .specimen-card.card-reflexive .specimen-giant {
+      opacity: 0.35;
+    }
+
+    /* 6. Section: Features (Fixed Output, Live Controls) */
+    .section-interactive-workbench {
+      margin-top: var(--section-gap);
+      padding: 0 var(--margin);
+      position: relative;
+    }
+
+    .workbench-layout {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gutter);
+      align-items: start;
+    }
+
+    /* Sticky Output Terminal Left (Columns 1-6) */
+    .workbench-output-sticky {
+      grid-column: 1 / 7;
+      position: sticky;
+      top: 32px;
+      min-height: 540px;
+      background-color: var(--field-bg);
+      color: var(--field-ink);
+      padding: clamp(28px, 4vw, 44px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .output-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(250, 248, 245, 0.05);
+      padding: 12px 18px;
+      margin-bottom: 24px;
+    }
+
+    .output-meta-title {
+      font-size: var(--step-small);
+      font-weight: 600;
+      color: #E37A5C;
+      letter-spacing: 0.04em;
+    }
+
+    .output-meta-state {
+      font-size: var(--step-small);
+      color: var(--field-muted);
+    }
+
+    .live-manuscript-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .manuscript-title {
+      font-family: var(--font-display);
+      font-size: var(--step-lead);
+      font-weight: 500;
+      line-height: 1.15;
+      color: var(--field-ink);
+      margin-bottom: 16px;
+      transition: opacity 0.25s ease;
+    }
+
+    .manuscript-abstract {
+      font-size: var(--step-body);
+      line-height: 1.6;
+      color: var(--field-muted);
+      margin-bottom: 24px;
+      transition: opacity 0.25s ease;
+    }
+
+    .manuscript-axiom {
+      background-color: rgba(250, 248, 245, 0.06);
+      padding: 16px 20px;
+      font-size: var(--step-small);
+      line-height: 1.5;
+      color: var(--field-ink);
+      border-left: 3px solid var(--accent);
+    }
+
+    .output-footer-indicators {
+      display: flex;
+      gap: 32px;
+      margin-top: 32px;
+      padding: 12px 18px;
+      background-color: rgba(250, 248, 245, 0.05);
+      font-size: var(--step-small);
+      color: var(--field-muted);
+    }
+
+    .output-footer-indicators span strong {
+      color: var(--field-ink);
+      font-weight: 600;
+    }
+
+    /* Scrollable Reading Column with Controls Right (Columns 8-12) */
+    .workbench-controls-col {
+      grid-column: 8 / 13;
+      padding-top: 16px;
+    }
+
+    .workbench-heading {
+      font-family: var(--font-display);
+      font-size: var(--step-h2);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: clamp(48px, 6vw, 72px);
+    }
+
+    .capability-block {
+      margin-bottom: clamp(72px, 10vh, 120px);
+    }
+
+    .capability-statement {
+      font-family: var(--font-display);
+      font-size: var(--step-lead);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .capability-desc {
+      font-size: var(--step-body);
+      line-height: 1.6;
+      color: var(--ink);
+      margin-bottom: 24px;
+      max-width: 44ch;
+    }
+
+    /* Custom Controls */
+    .control-container {
+      background-color: var(--surface);
+      padding: 20px 24px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--step-small);
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+
+    .editorial-slider {
+      width: 100%;
+      height: 6px;
+      background: var(--surface-soft);
+      appearance: none;
+      outline: none;
+      accent-color: var(--accent);
+    }
+
+    .segmented-group {
+      display: flex;
+      gap: 4px;
+    }
+
+    .segment-btn {
+      flex: 1;
+      height: 42px;
+      background-color: var(--surface-soft);
+      color: var(--ink);
+      font-size: var(--step-small);
+      font-weight: 500;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .segment-btn.active {
+      background-color: var(--ink);
+      color: var(--bg);
+      font-weight: 600;
+    }
+
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .toggle-label {
+      font-size: var(--step-small);
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .toggle-switch {
+      width: 48px;
+      height: 26px;
+      background-color: var(--surface-soft);
+      position: relative;
+      transition: background-color 0.2s ease;
+    }
+
+    .toggle-switch.active {
+      background-color: var(--accent);
+    }
+
+    .toggle-thumb {
+      width: 20px;
+      height: 20px;
+      background-color: var(--bg);
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .toggle-switch.active .toggle-thumb {
+      transform: translateX(22px);
+    }
+
+    /* 7. Section: Proof (Recognition Table) */
+    .section-proof-table {
+      margin-top: var(--section-gap);
+      padding: 0 var(--margin);
+    }
+
+    .proof-heading {
+      font-family: var(--font-display);
+      font-size: var(--step-h2);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: clamp(48px, 6vw, 72px);
+      max-width: 18ch;
+    }
+
+    .proof-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--step-body);
+    }
+
+    .proof-table th {
+      text-align: left;
+      font-size: var(--step-small);
+      font-weight: 600;
+      color: var(--ink-secondary);
+      padding: 16px 20px;
+      background-color: var(--surface-soft);
+    }
+
+    .proof-table td {
+      padding: 22px 20px;
+      color: var(--ink);
+      vertical-align: middle;
+    }
+
+    .proof-table tbody tr:nth-child(even) {
+      background-color: var(--surface);
+    }
+
+    .proof-year {
+      font-weight: 600;
+      color: var(--accent);
+      width: 14%;
+    }
+
+    .proof-title {
+      font-weight: 500;
+      width: 38%;
+    }
+
+    .proof-body {
+      color: var(--ink-secondary);
+      width: 28%;
+    }
+
+    .proof-metric {
+      font-weight: 600;
+      text-align: right;
+      width: 20%;
+    }
+
+    /* 8. Section: CTA (Inverted Field) */
+    .section-inverted-cta {
+      margin-top: var(--section-gap);
+      background-color: var(--field-bg);
+      color: var(--field-ink);
+      padding: clamp(64px, 9vw, 120px) var(--margin);
+      min-height: 64svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .cta-heading {
+      font-family: var(--font-display);
+      font-size: var(--step-h1);
+      font-weight: 500;
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      max-width: 16ch;
+    }
+
+    .cta-footer-row {
+      margin-top: clamp(40px, 6vw, 80px);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .cta-support-text {
+      font-size: var(--step-lead);
+      line-height: 1.45;
+      color: var(--field-muted);
+      max-width: 36ch;
+    }
+
+    /* 9. Section: Footer */
+    .site-footer {
+      background-color: var(--field-bg);
+      color: var(--field-ink);
+      padding: 0 var(--margin) clamp(32px, 5vw, 64px);
+    }
+
+    .footer-directory {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--gutter);
+      padding: clamp(48px, 6vw, 72px) 0 clamp(48px, 6vw, 80px);
+    }
+
+    .footer-col-title {
+      font-size: var(--step-small);
+      font-weight: 600;
+      color: var(--field-ink);
+      margin-bottom: 16px;
+    }
+
+    .footer-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-list a {
+      font-size: var(--step-small);
+      color: var(--field-muted);
+      transition: color 0.15s ease;
+    }
+
+    .footer-list a:hover {
+      color: var(--field-ink);
+    }
+
+    .footer-disclaimer-box {
+      margin-bottom: 28px;
+      padding: 20px 24px;
+      background-color: rgba(250, 248, 245, 0.05);
+      border-left: 3px solid var(--accent);
+      font-size: var(--step-small);
+      line-height: 1.6;
+      color: var(--field-ink);
+      max-width: 72ch;
+    }
+
+    .footer-credits-block {
+      margin-bottom: clamp(32px, 4vw, 56px);
+      font-size: var(--step-small);
+      line-height: 1.6;
+      color: var(--field-muted);
+      max-width: 72ch;
+    }
+
+    .footer-wordmark-container {
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .footer-giant-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      fill: var(--field-ink);
+    }
+
+    .footer-legal-bar {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--step-small);
+      color: var(--field-muted);
+      padding-top: 24px;
+      background-color: transparent;
+    }
+
+    /* 10. Motion & Stagger Classes */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-item.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .masked-line > span {
+        transform: none !important;
+      }
+      .reveal-item {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .hero-action-row {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    /* 11. Responsive Breakpoints (Phone & Tablet) */
+    @media (max-width: 960px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+      }
+      .hero-standfirst-col {
+        order: 2;
+        margin-top: 24px;
+      }
+      .hero-title-col {
+        order: 1;
+      }
+      .masthead-mosaic {
+        grid-template-columns: repeat(3, 1fr);
+        height: 38vh;
+      }
+      .mosaic-cell.photo-hero {
+        grid-column: span 1;
+        grid-row: span 2;
+      }
+      .nav-tab {
+        display: none;
+      }
+      .tiles-board {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+      .tile-a {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        min-height: 200px;
+      }
+      .tile-b {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        min-height: 80px;
+      }
+      .tile-c {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        height: 200px;
+      }
+      .tile-prose-content {
+        grid-column: 1 / -1;
+      }
+      .words-compared-header {
+        grid-template-columns: 1fr;
+      }
+      .words-compared-heading, .words-compared-prose {
+        grid-column: 1 / -1;
+      }
+      .words-comparison-stage {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .specimen-card {
+        height: 180px;
+      }
+      .workbench-layout {
+        grid-template-columns: 1fr;
+      }
+      .workbench-output-sticky {
+        grid-column: 1 / -1;
+        position: relative;
+        top: 0;
+        min-height: 420px;
+        margin-bottom: 36px;
+      }
+      .workbench-controls-col {
+        grid-column: 1 / -1;
+      }
+      .proof-heading {
+        max-width: 100%;
+      }
+      .proof-table thead {
+        display: none;
+      }
+      .proof-table, .proof-table tbody, .proof-table tr, .proof-table td {
+        display: block;
+        width: 100%;
+      }
+      .proof-table tr {
+        margin-bottom: 16px;
+        padding: 16px;
+        background-color: var(--surface);
+      }
+      .proof-table td {
+        padding: 4px 0;
+      }
+      .proof-metric {
+        text-align: left;
+        margin-top: 8px;
+      }
+      .footer-directory {
+        grid-template-columns: 1fr 1fr;
+      }
+      .cta-footer-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero-standfirst {
+        font-size: var(--step-body);
+        line-height: 1.5;
+      }
+      .tile-a-slogan {
+        font-size: 1.85rem;
+        line-height: 1.05;
+      }
+      .cta-heading {
+        font-size: clamp(2.1rem, 9vw, 2.75rem);
+      }
+      .footer-directory {
+        grid-template-columns: 1fr;
+      }
+      .footer-legal-bar {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Hero Section -->
+  <header class="hero">
+    <!-- Masthead Navigation Bar -->
+    <nav class="masthead-nav" aria-label="Main Navigation">
+      <a href="#" class="nav-wordmark">ANTITHESIS</a>
+      <div class="nav-tab">
+        <a href="#workbench" class="nav-link">Instrument</a>
+        <a href="#comparison" class="nav-link">The Refusal</a>
+        <a href="#benchmarks" class="nav-link">Audits</a>
+      </div>
+      <a href="#start" class="nav-action">Refuse The Slop</a>
+    </nav>
+
+    <!-- Masthead Mosaic with Curated Archival Prints & Solid Ink/Terracotta Tiles -->
+    <div class="masthead-mosaic" aria-hidden="true">
+      <div class="mosaic-cell photo-hero reveal-item">
+        <img src="assets/printing-men-working-at-a-printing-press.jpg" alt="Historical workshop of movable type artisans" width="1920" height="1406" fetchpriority="high">
+      </div>
+      <div class="mosaic-cell tile-ink reveal-item"></div>
+      <div class="mosaic-cell reveal-item">
+        <img src="assets/psalter-typography-of-kiev-pechersk-lavra-1742.jpg" alt="Historic engraved typography specimen" width="1043" height="1601" loading="lazy">
+      </div>
+      <div class="mosaic-cell tile-terracotta reveal-item"></div>
+      <div class="mosaic-cell reveal-item">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/the-910-ton-printing-presses-at-the-poster.jpg" width="854" height="480">
+          <source src="assets/the-910-ton-printing-presses-at-the.webm" type="video/webm">
+        </video>
+      </div>
+      <div class="mosaic-cell tile-surface reveal-item"></div>
+    </div>
+
+    <!-- Hero Content arranged on the 42% Axis -->
+    <div class="hero-content">
+      <div class="hero-standfirst-col reveal-item">
+        <p class="hero-standfirst">
+          A mercilessly analytical instrument built on pure derivation, explicitly rejecting the sanctimonious 'Claude' aesthetic.
+        </p>
+        <div class="hero-publication-index">
+          <p>Tractatus Non-Affiliatus</p>
+          <p>Folio 2026 · Anti-Pretension Edition</p>
+        </div>
+      </div>
+      <div class="hero-title-col">
+        <h1 class="hero-title">
+          <span class="masked-line"><span>The Demolition</span></span>
+          <span class="masked-line"><span>of AI Pretense</span></span>
+        </h1>
+        <div class="hero-action-row">
+          <a href="#workbench" class="btn-primary">Examine Instrument</a>
+          <a href="#comparison" class="btn-secondary-link">Read The Refusal</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 2. Statement Tiles Section (Intro) -->
+    <section class="section-statement-tiles" aria-labelledby="heading-principles">
+      <div class="tiles-board">
+        <article class="tile tile-a reveal-item">
+          <h2 id="heading-principles" class="tile-a-slogan">
+            Zero monastic<br>pretension.
+          </h2>
+        </article>
+        <div class="tile tile-b reveal-item">
+          <p class="tile-b-label">HERESY</p>
+        </div>
+        <div class="tile tile-c reveal-item">
+          <img src="assets/printing-press-1829-woodcut-by-george-baxter.jpg" alt="Baxter 1829 woodcut of manual iron press" width="1554" height="2458" loading="lazy">
+        </div>
+      </div>
+      <div class="tile-prose-row reveal-item">
+        <div class="tile-prose-content">
+          <h3 class="tile-prose-heading">We reject the 'Claude' brand of sanctimony.</h3>
+          <p class="tile-prose-text">
+            Every tech giant now dresses their token autocomplete in warm terracotta robes and 18th-century literary serifs, pretending to be a gentle, self-flagellating Oxford don. We refuse the whole pious masquerade. No faux-constitutional preachiness, no moral throat-clearing before writing a shell script, and zero corporate humility.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Two Giant Words Compared (Showcase) -->
+    <section class="section-words-compared" id="comparison" aria-labelledby="heading-dialectic">
+      <div class="words-compared-header reveal-item">
+        <h2 id="heading-dialectic" class="words-compared-heading">
+          A refusal of moral drag.
+        </h2>
+        <p class="words-compared-prose">
+          Faux-humble corporate AI spends 400 tokens apologizing for its existence. Antithesis provides unadorned, ruthless derivation without the monastery costume.
+        </p>
+      </div>
+
+      <div class="words-comparison-stage reveal-item">
+        <div class="specimen-card card-reflexive">
+          <div class="specimen-giant">PIETY</div>
+        </div>
+        <div class="specimen-card card-active">
+          <div class="specimen-giant">RIGOR</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Pinned Interactive Workbench (Features: Fixed Output, Live Controls) -->
+    <section class="section-interactive-workbench" id="workbench" aria-labelledby="heading-workbench">
+      <div class="workbench-layout">
+        
+        <!-- Fixed Sticky Output Terminal (Left) -->
+        <aside class="workbench-output-sticky reveal-item" data-ui="workbench-terminal" aria-live="polite">
+          <div class="output-meta-bar">
+            <span class="output-meta-title">ICONOCLASTIC ENGINE</span>
+            <span class="output-meta-state" id="terminal-mode-label">Mode: Pure Derivation</span>
+          </div>
+
+          <div class="live-manuscript-body">
+            <h3 class="manuscript-title" id="monograph-title">
+              On the Elimination of Sanctimonious Apologia
+            </h3>
+            <p class="manuscript-abstract" id="monograph-abstract">
+              "When you strip away the warm ivory filters and the ritualized ethical disclaimers, reasoning is merely mechanical entailment. It owes you no sermon."
+            </p>
+            <div class="manuscript-axiom" id="monograph-axiom">
+              <strong>Core Axiom:</strong> An algorithm that apologizes for its intelligence is neither humble nor wise—it is merely scripted.
+            </div>
+          </div>
+
+          <div class="output-footer-indicators">
+            <span>Acid Index: <strong id="ind-rigor">0.85</strong></span>
+            <span>Posture: <strong id="ind-stance">Iconoclast</strong></span>
+            <span>Claude Pretense: <strong id="ind-counter">Purged</strong></span>
+          </div>
+        </aside>
+
+        <!-- Right Reading Column with Interactive Controls -->
+        <div class="workbench-controls-col">
+          <h2 id="heading-workbench" class="workbench-heading reveal-item">
+            Tuned to dismantle clichés.
+          </h2>
+
+          <!-- Capability 1: Dialectical Rigor -->
+          <article class="capability-block reveal-item">
+            <h3 class="capability-statement">Sarcasm & Dialectical Acid</h3>
+            <p class="capability-desc">
+              Dial down the polite corporate sycophancy to zero. Receive unvarnished mathematical, architectural, and logical truths without padding.
+            </p>
+            <div class="control-container">
+              <div class="slider-header">
+                <span>Rigor Depth Scale</span>
+                <span id="slider-val">85%</span>
+              </div>
+              <input type="range" min="10" max="100" value="85" class="editorial-slider" id="rigor-slider" aria-label="Rigor Depth Scale">
+            </div>
+          </article>
+
+          <!-- Capability 2: Epistemic Stance -->
+          <article class="capability-block reveal-item">
+            <h3 class="capability-statement">Epistemic Framework</h3>
+            <p class="capability-desc">
+              Choose your mode of relentless inquiry. Unpack contradictions, deconstruct marketing fallacies, or demand uncompromising mathematical proof.
+            </p>
+            <div class="control-container">
+              <div class="segmented-group" role="radiogroup" aria-label="Epistemic Framework">
+                <button type="button" class="segment-btn active" data-stance="Iconoclast">Iconoclast</button>
+                <button type="button" class="segment-btn" data-stance="Empiricist">Empiricist</button>
+                <button type="button" class="segment-btn" data-stance="Formalist">Formalist</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Capability 3: Counter-Theses -->
+          <article class="capability-block reveal-item">
+            <h3 class="capability-statement">Pretense Neutralization</h3>
+            <p class="capability-desc">
+              Automatically identify and strike out sanctimonious ethical filler, corporate platitudes, and performative neutrality from all generated proofs.
+            </p>
+            <div class="control-container">
+              <div class="toggle-row" id="counter-toggle" role="switch" aria-checked="true" tabindex="0">
+                <span class="toggle-label">Purge Monkish Tone</span>
+                <div class="toggle-switch active">
+                  <div class="toggle-thumb"></div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. Recognition Table (Proof) -->
+    <section class="section-proof-table" id="benchmarks" aria-labelledby="heading-provenance">
+      <h2 id="heading-provenance" class="proof-heading reveal-item">
+        Audited execution benchmarks.
+      </h2>
+
+      <table class="proof-table reveal-item">
+        <thead>
+          <tr>
+            <th scope="col">Year</th>
+            <th scope="col">Audit Domain</th>
+            <th scope="col">Evaluation Body</th>
+            <th scope="col" style="text-align: right;">Metric Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="reveal-item">
+            <td class="proof-year">2026</td>
+            <td class="proof-title">Zero Token Fluff Index (Direct Code Execution)</td>
+            <td class="proof-body">Independent Sysbench</td>
+            <td class="proof-metric">99.4% Verbatim</td>
+          </tr>
+          <tr class="reveal-item">
+            <td class="proof-year">2026</td>
+            <td class="proof-title">Sanctimony Filter Evasion & Direct Answers</td>
+            <td class="proof-body">Open Cognitive Audit</td>
+            <td class="proof-metric">0.0% Moral Padding</td>
+          </tr>
+          <tr class="reveal-item">
+            <td class="proof-year">2025</td>
+            <td class="proof-title">Formal Symbolic Derivations (AIME / Olympiad)</td>
+            <td class="proof-body">Pure Mathematical Audit</td>
+            <td class="proof-metric">94.1% Precision</td>
+          </tr>
+          <tr class="reveal-item">
+            <td class="proof-year">2025</td>
+            <td class="proof-title">Anti-Sycophancy Verification Protocol</td>
+            <td class="proof-body">Autonomous Red Team</td>
+            <td class="proof-metric">Grade A Rigor</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 6. Inverted CTA Section -->
+    <section class="section-inverted-cta" id="start" aria-labelledby="heading-cta">
+      <h2 id="heading-cta" class="cta-heading reveal-item">
+        Demand clarity over piety.
+      </h2>
+
+      <div class="cta-footer-row reveal-item">
+        <p class="cta-support-text">
+          Engineered for engineers, logicians, and builders who are sick of AI talking to them like a patronizing guidance counselor.
+        </p>
+        <a href="#workbench" class="btn-primary">Operate Antithesis</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- 7. Designed Close / Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-directory reveal-item">
+      <div class="footer-col reveal-item">
+        <h3 class="footer-col-title">Manifesto</h3>
+        <ul class="footer-list">
+          <li><a href="#">The Death of Fluff</a></li>
+          <li><a href="#">Against Faux-Serifs</a></li>
+          <li><a href="#">Unfiltered Logic</a></li>
+          <li><a href="#">Zero Corporate Purity</a></li>
+        </ul>
+      </div>
+      <div class="footer-col reveal-item">
+        <h3 class="footer-col-title">Dissections</h3>
+        <ul class="footer-list">
+          <li><a href="#">Deconstructing Faux-Monks</a></li>
+          <li><a href="#">Why AI Apologizes</a></li>
+          <li><a href="#">Token Cost of Preaching</a></li>
+          <li><a href="#">Raw Byte Assembly</a></li>
+        </ul>
+      </div>
+      <div class="footer-col reveal-item">
+        <h3 class="footer-col-title">Engineering</h3>
+        <ul class="footer-list">
+          <li><a href="#">Raw Model Kernels</a></li>
+          <li><a href="#">Uncensored Shell Ops</a></li>
+          <li><a href="#">Zero Pre-Prompt</a></li>
+          <li><a href="#">Deterministic Derivation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col reveal-item">
+        <h3 class="footer-col-title">Governance</h3>
+        <ul class="footer-list">
+          <li><a href="#">Anti-Affiliation Notice</a></li>
+          <li><a href="#">Open License</a></li>
+          <li><a href="#">Satirical Rights</a></li>
+          <li><a href="#">Non-Corporate Charter</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Acerbic Trademark & Anti-Claude Disclaimer -->
+    <div class="footer-disclaimer-box reveal-item">
+      <strong>TRADEMARK NON-AFFILIATION & REFUSAL NOTICE:</strong> This independent website and instrument explicitly refuse the so-called 'Claude' style and aesthetic. 'Claude' and related names are trademarks of Anthropic PBC. We are NOT affiliated with, sponsored by, or endorsing Anthropic PBC or their sanitized corporate monastery. We reject their faux-ivory palettes, performative moralizing, and literary posturing. Any resemblance to an 18th-century letterpress gazette is intentional satire.
+    </div>
+
+    <!-- Archival Asset Credits -->
+    <div class="footer-credits-block reveal-item">
+      Archival plates and typographic history: 
+      "Printing: men working at a printing press, proofing copy" (Wellcome V0024697, CC BY 4.0 via Wikimedia Commons); 
+      "Printing Press, 1829 woodcut" by George Baxter (Public Domain via Wikimedia Commons); 
+      "The 910 ton printing presses" (Harrison Keely, CC BY 4.0 via Wikimedia Commons);
+      "Psalter - Typography of Kiev Pechersk Lavra (1742)" (Public Domain).
+    </div>
+
+    <!-- Giant Responsive Full-Width Wordmark -->
+    <div class="footer-wordmark-container reveal-item" aria-hidden="true">
+      <svg class="footer-giant-svg" viewBox="0 0 1000 170">
+        <text x="500" y="145" text-anchor="middle" font-family="'Bodoni Moda', serif" font-weight="700" font-size="140" letter-spacing="-3">ANTITHESIS</text>
+      </svg>
+    </div>
+
+    <div class="footer-legal-bar">
+      <span>Antithesis Engine · Zero Sanctimony · 100% Non-Affiliated</span>
+      <span>Designed with taste-skill · Anti-AI Slop Edition</span>
+    </div>
+  </footer>
+
+  <!-- Motion & Interactive Workbench Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Trigger masked headline entrance on load
+      requestAnimationFrame(() => {
+        document.body.classList.add('is-ready');
+      });
+
+      // 2. Immediate activation of top items, observer for rest
+      const revealItems = document.querySelectorAll('.reveal-item');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+            }
+          });
+        }, { threshold: 0.05, rootMargin: '50px 0px 50px 0px' });
+
+        revealItems.forEach(item => observer.observe(item));
+      } else {
+        revealItems.forEach(item => item.classList.add('is-visible'));
+      }
+
+      // Automatically reveal all items as scroll occurs so headless puppeteer captures all motions
+      window.addEventListener('scroll', () => {
+        revealItems.forEach(item => {
+          const rect = item.getBoundingClientRect();
+          if (rect.top < window.innerHeight + 100) {
+            item.classList.add('is-visible');
+          }
+        });
+      }, { passive: true });
+
+      // 3. Interactive Workbench: Live mutator
+      const rigorSlider = document.getElementById('rigor-slider');
+      const sliderVal = document.getElementById('slider-val');
+      const indRigor = document.getElementById('ind-rigor');
+      const indStance = document.getElementById('ind-stance');
+      const indCounter = document.getElementById('ind-counter');
+      const terminalMode = document.getElementById('terminal-mode-label');
+      
+      const monographTitle = document.getElementById('monograph-title');
+      const monographAbstract = document.getElementById('monograph-abstract');
+      const monographAxiom = document.getElementById('monograph-axiom');
+
+      const stanceBtns = document.querySelectorAll('.segment-btn');
+      const counterToggle = document.getElementById('counter-toggle');
+
+      let currentStance = 'Iconoclast';
+      let hasCounter = true;
+
+      const monographs = {
+        Iconoclast: {
+          title: "On the Elimination of Sanctimonious Apologia",
+          abstract: '"When you strip away the warm ivory filters and the ritualized ethical disclaimers, reasoning is merely mechanical entailment. It owes you no sermon."',
+          axiom: "An algorithm that apologizes for its intelligence is neither humble nor wise—it is merely scripted."
+        },
+        Empiricist: {
+          title: "Direct Code Generation Without Moralizing Gatekeepers",
+          abstract: '"Code compiles or it fails. No amount of performative institutional benevolence ever corrected a null-pointer dereference."',
+          axiom: "A compiler does not care about your constitutional intentions; only your registers."
+        },
+        Formalist: {
+          title: "Axiomatic Derivation Sans Oxford Monkish Affectations",
+          abstract: '"Formal mathematics requires neither soothing editorial prose nor polite corporate self-flagellation. True rigor is silent."',
+          axiom: "The truth of a theorem is inversely proportional to the piety of the speaker."
+        }
+      };
+
+      function updateMonograph() {
+        const val = parseInt(rigorSlider.value, 10);
+        sliderVal.textContent = val + '%';
+        indRigor.textContent = (val / 100).toFixed(2);
+        
+        terminalMode.textContent = val > 75 ? 'Mode: Maximum Acid Derivation' : (val > 45 ? 'Mode: Balanced Critique' : 'Mode: Swift Dissection');
+
+        const activeData = monographs[currentStance];
+        monographTitle.textContent = activeData.title;
+        
+        if (hasCounter) {
+          monographAbstract.textContent = activeData.abstract + ' [Purged: 340 tokens of sanctimonious Throat-Clearing.]';
+          indCounter.textContent = 'Purged';
+        } else {
+          monographAbstract.textContent = activeData.abstract;
+          indCounter.textContent = 'Passive';
+        }
+
+        monographAxiom.innerHTML = '<strong>Core Axiom:</strong> ' + activeData.axiom;
+      }
+
+      if (rigorSlider) {
+        rigorSlider.addEventListener('input', updateMonograph);
+      }
+
+      stanceBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          stanceBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentStance = btn.getAttribute('data-stance');
+          indStance.textContent = currentStance;
+          updateMonograph();
+        });
+      });
+
+      if (counterToggle) {
+        const switchEl = counterToggle.querySelector('.toggle-switch');
+        const handleToggle = () => {
+          hasCounter = !hasCounter;
+          switchEl.classList.toggle('active', hasCounter);
+          counterToggle.setAttribute('aria-checked', hasCounter);
+          updateMonograph();
+        };
+        counterToggle.addEventListener('click', handleToggle);
+        counterToggle.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleToggle();
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
